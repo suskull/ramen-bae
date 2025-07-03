@@ -1,0 +1,62 @@
+# 🐳 Learning Database Environment
+# This sets up PostgreSQL + pgAdmin for database learning
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: learning-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: learning_db
+      POSTGRES_USER: student
+      POSTGRES_PASSWORD: learn123
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schemas:/docker-entrypoint-initdb.d  # Auto-load schema files
+    networks:
+      - learning-network
+
+  # pgAdmin - Database Management Interface
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: learning-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: student@example.com
+      PGADMIN_DEFAULT_PASSWORD: learn123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - learning-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  learning-network:
+    driver: bridge
+
+# 📋 Connection Details:
+# Database Host: localhost
+# Database Port: 5432
+# Database Name: learning_db
+# Username: student
+# Password: learn123
+#
+# pgAdmin URL: http://localhost:8080
+# pgAdmin Email: student@example.com
+# pgAdmin Password: learn123 

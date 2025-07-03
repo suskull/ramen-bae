@@ -1,0 +1,248 @@
+# ============================================
+# POSTGRESQL CONFIGURATION EXAMPLE
+# ============================================
+#
+# This is an example postgresql.conf file with optimized settings
+# for a production PostgreSQL database server.
+#
+# IMPORTANT: 
+# - Adjust values based on your system specifications
+# - Test changes in development environment first
+# - Some changes require PostgreSQL restart
+# - Monitor performance after changes
+#
+# System Assumptions:
+# - 16GB RAM
+# - SSD storage  
+# - Dedicated database server
+# - Mixed workload (OLTP + some analytics)
+#
+# ============================================
+
+# ---------------------------------------------
+# CONNECTIONS AND AUTHENTICATION
+# ---------------------------------------------
+
+# Connection Settings
+max_connections = 200                    # Maximum concurrent connections
+superuser_reserved_connections = 3       # Reserved for superuser emergency access
+
+# Authentication
+#ssl = on                                # Enable SSL connections
+#ssl_cert_file = 'server.crt'           # SSL certificate file
+#ssl_key_file = 'server.key'            # SSL private key file
+
+# ---------------------------------------------
+# RESOURCE USAGE (MEMORY)
+# ---------------------------------------------
+
+# Memory Settings (for 16GB RAM system)
+shared_buffers = 4GB                     # 25% of RAM - shared buffer cache
+effective_cache_size = 12GB              # 75% of RAM - OS + PG cache estimate
+work_mem = 8MB                          # Memory per sort/hash operation
+maintenance_work_mem = 1GB               # Memory for maintenance operations
+max_stack_depth = 2MB                   # Maximum stack depth
+
+# Kernel Resource Usage
+max_files_per_process = 4000            # Maximum open files per process
+shared_preload_libraries = 'pg_stat_statements'  # Extensions to preload
+
+# ---------------------------------------------
+# WRITE-AHEAD LOGGING (WAL)
+# ---------------------------------------------
+
+# WAL Settings
+wal_level = replica                      # Level of WAL information (minimal/replica/logical)
+wal_buffers = 32MB                      # WAL buffer size in shared memory
+max_wal_size = 8GB                      # Maximum WAL size before checkpoint
+min_wal_size = 2GB                      # Minimum WAL size to keep
+wal_compression = on                     # Compress WAL records
+
+# Checkpoints
+checkpoint_completion_target = 0.9       # Fraction of checkpoint interval (0.5-0.9)
+checkpoint_timeout = 10min              # Maximum time between checkpoints
+
+# Archiving (for PITR and replication)
+#archive_mode = on                       # Enable WAL archiving
+#archive_command = 'cp %p /var/lib/postgresql/wal_archive/%f'  # Archive command
+
+# ---------------------------------------------
+# REPLICATION
+# ---------------------------------------------
+
+# Replication Settings
+max_wal_senders = 10                    # Maximum concurrent WAL senders
+max_replication_slots = 10              # Maximum replication slots
+hot_standby = on                        # Allow read queries on standby
+wal_sender_timeout = 60s                # WAL sender timeout
+wal_receiver_timeout = 60s              # WAL receiver timeout
+
+# Standby Settings
+#hot_standby_feedback = on              # Send feedback to primary
+#max_standby_streaming_delay = 30s      # Max delay before canceling queries
+
+# ---------------------------------------------
+# QUERY TUNING
+# ---------------------------------------------
+
+# Planner Cost Constants (optimized for SSD)
+random_page_cost = 1.1                  # Random page access cost (SSD: 1.1, HDD: 4.0)
+seq_page_cost = 1.0                     # Sequential page access cost
+cpu_tuple_cost = 0.01                   # CPU cost per tuple processed
+cpu_index_tuple_cost = 0.005            # CPU cost per index tuple processed
+cpu_operator_cost = 0.0025              # CPU cost per operator/function
+
+# Planner Configuration
+effective_io_concurrency = 200          # Concurrent I/O operations (SSD: 200, HDD: 2)
+max_worker_processes = 8                # Maximum background worker processes
+max_parallel_workers_per_gather = 4     # Maximum parallel workers per Gather node
+max_parallel_workers = 8                # Maximum parallel workers system-wide
+max_parallel_maintenance_workers = 4    # Maximum parallel maintenance workers
+
+# Statistics and Planning
+default_statistics_target = 100         # Default statistics target (10-10000)
+from_collapse_limit = 8                 # FROM list collapse limit
+join_collapse_limit = 8                 # JOIN collapse limit
+
+# ---------------------------------------------
+# ERROR REPORTING AND LOGGING
+# ---------------------------------------------
+
+# Logging Configuration
+logging_collector = on                   # Enable logging collector
+log_destination = 'stderr'              # Log destination
+log_directory = 'pg_log'                # Log directory
+log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'  # Log filename pattern
+log_file_mode = 0600                    # Log file permissions
+log_truncate_on_rotation = off          # Don't truncate logs on rotation
+log_rotation_age = 1d                   # Rotate logs daily
+log_rotation_size = 100MB               # Rotate when log reaches 100MB
+
+# What to Log
+log_min_messages = warning              # Minimum message level to log
+log_min_error_statement = error         # Minimum error level to log statement
+log_min_duration_statement = 1000       # Log queries taking more than 1 second
+log_checkpoints = on                    # Log checkpoint activity
+log_connections = on                    # Log connections
+log_disconnections = on                 # Log disconnections
+log_lock_waits = on                     # Log lock waits
+log_temp_files = 10MB                   # Log temp files larger than 10MB
+log_autovacuum_min_duration = 0         # Log all autovacuum activity
+
+# Query and Statement Logging
+log_statement = 'none'                  # Log statements (none/ddl/mod/all)
+log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '  # Log line prefix
+
+# ---------------------------------------------
+# AUTOVACUUM
+# ---------------------------------------------
+
+# Autovacuum Settings
+autovacuum = on                         # Enable autovacuum
+log_autovacuum_min_duration = 0         # Log autovacuum activity
+autovacuum_max_workers = 3              # Maximum autovacuum workers
+autovacuum_naptime = 1min               # Sleep time between autovacuum runs
+autovacuum_vacuum_threshold = 50        # Minimum tuple updates before vacuum
+autovacuum_analyze_threshold = 50       # Minimum tuple updates before analyze
+autovacuum_vacuum_scale_factor = 0.2    # Fraction of table size to add to threshold
+autovacuum_analyze_scale_factor = 0.1   # Fraction of table size to add to threshold
+autovacuum_freeze_max_age = 200000000   # Maximum XID age before forced vacuum
+autovacuum_multixact_freeze_max_age = 400000000  # Maximum multixact age
+autovacuum_vacuum_cost_delay = 20ms     # Autovacuum cost delay
+autovacuum_vacuum_cost_limit = 200      # Autovacuum cost limit
+
+# ---------------------------------------------
+# CLIENT CONNECTION DEFAULTS
+# ---------------------------------------------
+
+# Locale and Formatting
+datestyle = 'iso, mdy'                  # Date style
+timezone = 'UTC'                        # Timezone
+lc_messages = 'en_US.UTF-8'            # Locale for messages
+lc_monetary = 'en_US.UTF-8'            # Locale for monetary
+lc_numeric = 'en_US.UTF-8'             # Locale for numbers
+lc_time = 'en_US.UTF-8'                # Locale for time
+
+# Other Defaults
+default_text_search_config = 'pg_catalog.english'  # Default text search config
+
+# ---------------------------------------------
+# LOCK MANAGEMENT
+# ---------------------------------------------
+
+# Lock Settings
+max_locks_per_transaction = 64          # Maximum locks per transaction
+max_pred_locks_per_transaction = 64     # Maximum predicate locks per transaction
+deadlock_timeout = 1s                  # Time to wait before checking for deadlock
+
+# ---------------------------------------------
+# VERSION/PLATFORM COMPATIBILITY
+# ---------------------------------------------
+
+# Previous PostgreSQL Versions
+#array_nulls = on
+#backslash_quote = safe_encoding
+#default_with_oids = off
+#escape_string_warning = on
+#lo_compat_privileges = off
+#operator_precedence_warning = off
+#quote_all_identifiers = off
+#sql_inheritance = on
+#standard_conforming_strings = on
+#synchronize_seqscans = on
+
+# ---------------------------------------------
+# ERROR HANDLING
+# ---------------------------------------------
+
+# Statement Timeout
+statement_timeout = 0                   # Statement timeout (0 = disabled)
+lock_timeout = 0                        # Lock timeout (0 = disabled)
+idle_in_transaction_session_timeout = 0 # Idle transaction timeout
+
+# ---------------------------------------------
+# CUSTOMIZED OPTIONS
+# ---------------------------------------------
+
+# Extensions Configuration
+shared_preload_libraries = 'pg_stat_statements'
+pg_stat_statements.max = 10000
+pg_stat_statements.track = all
+
+# Custom Variables (examples)
+#custom.variable_name = 'value'
+
+# ---------------------------------------------
+# NOTES AND RECOMMENDATIONS
+# ---------------------------------------------
+
+# MEMORY SIZING GUIDELINES:
+# - shared_buffers: 25% of RAM (but not more than 8GB)
+# - effective_cache_size: 75% of RAM
+# - work_mem: Total RAM / max_connections / 4
+# - maintenance_work_mem: 5% of RAM (but not more than 2GB)
+
+# STORAGE TYPE ADJUSTMENTS:
+# SSD Storage:
+#   - random_page_cost = 1.1
+#   - effective_io_concurrency = 200
+# HDD Storage:
+#   - random_page_cost = 4.0
+#   - effective_io_concurrency = 2
+
+# WORKLOAD-SPECIFIC TUNING:
+# OLTP Workload:
+#   - Smaller work_mem (4-8MB)
+#   - More connections
+#   - Faster checkpoints
+# Analytics Workload:
+#   - Larger work_mem (100MB+)
+#   - Fewer connections
+#   - More parallel workers
+
+# MONITORING RECOMMENDATIONS:
+# - Enable pg_stat_statements extension
+# - Monitor slow query log
+# - Track buffer hit ratios
+# - Monitor checkpoint frequency
+# - Watch for lock waits 
