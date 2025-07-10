@@ -176,6 +176,7 @@ curl -X POST http://localhost:3000/auth/register \
   }'
 ```
 
+
 ### Test Password Injection:
 ```bash
 curl -X POST http://localhost:3000/auth/register \
