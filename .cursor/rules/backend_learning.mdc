@@ -1,0 +1,219 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Backend Learning Rules for Frontend Developers
+
+## 🎯 **Core Learning Philosophy**
+This project prioritizes **backend learning opportunities** for a frontend developer building their first full-stack application. Every backend-related task should be structured to maximize educational value while building real functionality.
+
+## 📚 **Learning-First Approach**
+
+### **Explanation Requirements**
+- **Always explain WHY**: Before implementing any backend concept, explain the purpose and problem it solves
+- **Frontend analogies**: Relate backend concepts to familiar frontend patterns when possible
+- **Progressive complexity**: Start with simple implementations, then add complexity with clear reasoning
+- **Multiple approaches**: Show different ways to solve the same problem, explain trade-offs
+
+### **Documentation Standards**
+- **Inline comments**: Extensive comments explaining backend logic, especially for database queries, API design, and authentication flows
+- **README sections**: Dedicated sections for each backend technology learned
+- **Learning journal**: Track backend concepts learned in `.taskmaster/docs/learning-journal.md`
+- **Code examples**: Working examples for each new backend pattern introduced
+
+## 🗄️ **Database Learning Priority**
+
+### **Hands-On Database Work**
+```typescript
+// ✅ DO: Teach raw SQL concepts alongside ORM
+const users = await db
+  .select()
+  .from(usersTable)
+  .where(eq(usersTable.email, email));
+
+/* Raw SQL equivalent (explain in comments):
+   SELECT * FROM users WHERE email = $1;
+   This teaches: table relationships, WHERE clauses, parameterized queries
+*/
+```
+
+### **Schema Design Education**
+- **Start simple**: Begin with basic tables, gradually introduce relationships
+- **Explain normalization**: Why we separate users, orders, and products into different tables
+- **Index education**: When and why to add database indexes
+- **Migration learning**: Understand schema evolution and version control
+
+## 🔐 **Authentication Deep Dive**
+
+### **Security Understanding**
+```typescript
+// ✅ DO: Explain security concepts step by step
+// 1. Password hashing (never store plain text)
+const hashedPassword = await bcrypt.hash(password, 12);
+
+// 2. JWT tokens (stateless authentication)
+const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+
+// 3. Session management (why we need refresh tokens)
+```
+
+### **Supabase Auth Learning Path**
+- **Row Level Security (RLS)**: Understand database-level security
+- **Policy creation**: Learn to write security policies
+- **Auth hooks**: Custom authentication logic
+- **Social auth**: OAuth integration patterns
+
+## 🛠️ **API Design Education**
+
+### **REST API Principles**
+```typescript
+// ✅ DO: Explain HTTP methods and status codes
+// GET /api/products - Retrieve all products (200)
+// POST /api/products - Create new product (201)
+// PUT /api/products/123 - Update product (200)
+// DELETE /api/products/123 - Remove product (204)
+```
+
+### **tRPC Learning Focus**
+- **Type safety**: How backend types flow to frontend
+- **Procedure types**: Query vs Mutation differences
+- **Input validation**: Zod schema learning
+- **Error handling**: Proper error propagation
+
+## 🐳 **Infrastructure Learning**
+
+### **Docker Concepts**
+- **Container vs VM**: Fundamental differences explained
+- **Dockerfile anatomy**: Each instruction's purpose
+- **Docker Compose**: Service orchestration concepts
+- **Networking**: How containers communicate
+- **Volumes**: Data persistence strategies
+
+### **Self-Hosted Services**
+```yaml
+# ✅ DO: Explain each service's role in comments
+services:
+  # API Gateway - Routes requests to appropriate services
+  kong:
+    image: kong:2.8.1
+    # Why Kong? Load balancing, rate limiting, authentication
+  
+  # Database - Where all data lives
+  postgres:
+    image: postgres:15
+    # Why PostgreSQL? ACID compliance, relations, performance
+```
+
+## 💼 **Business Logic Learning**
+
+### **E-commerce Concepts**
+- **Order lifecycle**: Cart → Order → Payment → Fulfillment
+- **Inventory management**: Stock tracking, overselling prevention
+- **Payment flows**: Stripe integration, webhooks, idempotency
+- **Email systems**: Transactional vs marketing emails
+
+### **Background Jobs**
+```typescript
+// ✅ DO: Explain async processing benefits
+// Why background jobs?
+// 1. Don't block user requests
+// 2. Retry failed operations
+// 3. Scale independently
+// 4. Handle external service delays
+
+export async function processOrderEmail(orderId: string) {
+  // This runs in background, user doesn't wait
+}
+```
+
+## 🔍 **Debugging and Monitoring**
+
+### **Backend Debugging Skills**
+- **Database query analysis**: Using EXPLAIN for performance
+- **API request/response logging**: Structured logging practices
+- **Error tracking**: Proper error handling and reporting
+- **Performance monitoring**: Identifying bottlenecks
+
+### **Development Tools**
+- **pgAdmin**: Database management interface
+- **Redis CLI**: Cache inspection and debugging
+- **Docker logs**: Container debugging
+- **API testing**: Postman/Insomnia usage
+
+## 📈 **Progressive Learning Path**
+
+### **Phase 1: Foundations (Weeks 1-2)**
+- Basic HTTP concepts and REST APIs
+- Database design and relationships
+- Simple CRUD operations
+- Docker basics and containerization
+
+### **Phase 2: Authentication & Security (Weeks 3-4)**
+- User authentication flows
+- Session management
+- Database security (RLS)
+- Input validation and sanitization
+
+### **Phase 3: Business Logic (Weeks 5-6)**
+- E-commerce order flows
+- Payment processing
+- Email systems
+- Background job processing
+
+### **Phase 4: Advanced Topics (Weeks 7-8)**
+- Performance optimization
+- Caching strategies
+- Monitoring and logging
+- Deployment and DevOps
+
+## 🎓 **Learning Validation**
+
+### **Checkpoint Questions**
+For each backend feature implemented, ensure understanding by answering:
+1. **What problem does this solve?**
+2. **How does data flow through the system?**
+3. **What could go wrong and how do we handle it?**
+4. **How would this scale with more users?**
+5. **What security considerations exist?**
+
+### **Practical Exercises**
+- **Query practice**: Write raw SQL for each Drizzle query
+- **API testing**: Use curl or Postman for every endpoint
+- **Database exploration**: Examine data directly in pgAdmin
+- **Docker experiments**: Modify container configurations
+
+## 🔄 **Iterative Learning Process**
+
+### **Task Structure for Learning**
+```markdown
+## Implementation Steps
+1. **Concept Explanation**: What we're building and why
+2. **Simple Implementation**: Basic working version
+3. **Enhancement**: Add complexity with explanation
+4. **Testing**: Verify functionality and edge cases
+5. **Reflection**: What was learned, what's next
+```
+
+### **Documentation as Learning**
+- **Decision log**: Why we chose specific approaches
+- **Mistake log**: What didn't work and lessons learned
+- **Reference guide**: Personal cheatsheet of backend patterns
+- **Next steps**: Areas for future learning and improvement
+
+## 🚨 **Common Pitfalls to Avoid**
+- **Don't skip explanations** for "obvious" backend concepts
+- **Don't use magic/black box solutions** without understanding
+- **Don't prioritize speed over learning** in early phases
+- **Don't implement without testing** - teach proper testing habits
+- **Don't ignore security** - build secure habits from the start
+
+## 📝 **Assessment Criteria**
+Every backend task should result in:
+- ✅ **Working code** that solves the problem
+- ✅ **Clear understanding** of underlying concepts
+- ✅ **Documented learning** for future reference
+- ✅ **Tested functionality** with edge cases considered
+- ✅ **Security awareness** built into the solution
+
+**Remember**: The goal is not just to build features, but to become a competent backend developer through hands-on learning with real-world patterns and best practices.

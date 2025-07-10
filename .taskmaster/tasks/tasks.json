@@ -1,0 +1,308 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "0",
+        "title": "Backend Learning Foundations & Onboarding",
+        "description": "Comprehensive backend education through hands-on exercises and concept exploration",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [],
+        "details": "LEARNING-FOCUSED TASK: Before building the main application, establish solid backend fundamentals through practical exercises. Topics include: HTTP methods and status codes (create test endpoints for each), database design principles (design entity-relationship diagrams), API design patterns (build simple CRUD examples), Docker fundamentals (run basic containers), authentication concepts (implement basic JWT), and SQL basics (practice queries). Create proof-of-concept mini-applications to understand each concept deeply. Document learning in .taskmaster/docs/learning-journal.md. Set up development tools: pgAdmin, Postman/Insomnia, Docker Desktop. This task should take 1-2 weeks and result in strong foundational knowledge before proceeding to main features.",
+        "testStrategy": "Complete all proof-of-concept exercises, demonstrate understanding through documentation, and pass knowledge checkpoints for each concept area",
+        "subtasks": [
+          {
+            "id": "0.1",
+            "title": "HTTP Fundamentals & API Basics",
+            "description": "Learn HTTP methods, status codes, and API design through hands-on practice",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Create simple Next.js API routes demonstrating each HTTP method (GET, POST, PUT, DELETE, PATCH). Practice proper status code usage (200, 201, 400, 401, 404, 500). Build a mini REST API for a simple resource (e.g., books) with proper endpoint naming. Understand request/response cycle, headers, and content types. Test all endpoints using curl and Postman.",
+            "testStrategy": "Successfully test all HTTP methods and demonstrate understanding of when to use each status code"
+          },
+          {
+            "id": "0.2",
+            "title": "Database Design & SQL Fundamentals",
+            "description": "Learn database concepts through practical schema design and SQL practice",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Study database normalization principles. Design entity-relationship diagrams for the e-commerce domain (users, products, orders). Practice raw SQL queries: SELECT with JOINs, INSERT, UPDATE, DELETE. Understand primary keys, foreign keys, indexes. Set up local PostgreSQL, create tables manually, practice queries in pgAdmin. Compare SQL to frontend array/object operations for better understanding.",
+            "testStrategy": "Design a complete e-commerce schema and write 20+ SQL queries demonstrating different concepts"
+          },
+          {
+            "id": "0.3",
+            "title": "Docker Environment Setup & Learning",
+            "description": "Master Docker fundamentals through hands-on container management",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Understand containers vs VMs concept. Practice basic Docker commands: run, build, exec, logs. Create simple Dockerfile for a Node.js app. Learn Docker Compose for multi-container apps. Set up development database in Docker. Understand volumes, networks, environment variables. Practice troubleshooting container issues.",
+            "testStrategy": "Successfully run multi-container application with custom Dockerfile and docker-compose configuration"
+          },
+          {
+            "id": "0.4",
+            "title": "Authentication & Security Concepts",
+            "description": "Understand authentication flows and security best practices",
+            "status": "pending",
+            "dependencies": [],
+            "details": "Learn password hashing with bcrypt. Understand JWT tokens: structure, claims, expiration. Implement basic authentication middleware. Study session vs token-based auth trade-offs. Practice input validation and sanitization. Understand CORS, CSRF protection. Compare to frontend authentication patterns.",
+            "testStrategy": "Build a working authentication system with registration, login, protected routes, and proper security measures"
+          },
+          {
+            "id": "0.5",
+            "title": "API Design & tRPC Introduction",
+            "description": "Learn type-safe API development with tRPC and validation",
+            "status": "pending",
+            "dependencies": [
+              "0.1"
+            ],
+            "details": "Understand tRPC benefits over REST. Set up basic tRPC server and client. Create typed procedures with input validation using Zod. Learn query vs mutation differences. Practice error handling. Compare tRPC to frontend function calls for easier understanding. Build simple CRUD operations with full type safety.",
+            "testStrategy": "Create fully typed API with input validation, error handling, and client-server type safety"
+          }
+        ]
+      },
+      {
+        "id": "1",
+        "title": "Project Setup and Configuration",
+        "description": "Set up the development environment, configure Next.js, TypeScript, and essential tools",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "0"
+        ],
+        "details": "Configure Next.js 14+ project with TypeScript, set up ESLint, Prettier, Tailwind CSS, and basic project structure. Install and configure shadcn/ui components. Apply learnings from backend foundations task.",
+        "testStrategy": "Verify project builds successfully and all tools are properly configured"
+      },
+      {
+        "id": "2",
+        "title": "Database Schema Design & Setup",
+        "description": "Design and implement database schema using Drizzle ORM with Supabase",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "details": "LEARNING-FOCUSED: Apply database design principles learned in task 0.2. Create tables for products, users, orders, categories, reviews, cart items, and other necessary entities. Set up Drizzle ORM configuration and migrations. EDUCATIONAL COMPONENTS: Compare Drizzle schema definitions to raw SQL CREATE TABLE statements. Understand ORM vs raw SQL trade-offs. Practice writing migrations and understand schema versioning. Document design decisions and why each relationship exists.",
+        "testStrategy": "Test database connections and verify all tables are created correctly"
+      },
+      {
+        "id": "3",
+        "title": "Authentication System Implementation",
+        "description": "Implement user authentication using Supabase Auth",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "2"
+        ],
+        "details": "LEARNING-FOCUSED: Build upon authentication concepts from task 0.4. Set up Supabase Auth with email/password login, registration, password reset, and session management. Implement protected routes and auth middleware. EDUCATIONAL COMPONENTS: Understand how Supabase Auth works under the hood. Compare to custom JWT implementation from learning task. Learn Row Level Security (RLS) policies. Document authentication flow diagrams. Practice debugging auth issues.",
+        "testStrategy": "Test user registration, login, logout, and protected route access"
+      },
+      {
+        "id": "4",
+        "title": "tRPC API Layer Setup",
+        "description": "Configure tRPC for type-safe API communication between frontend and backend",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "2"
+        ],
+        "details": "LEARNING-FOCUSED: Apply tRPC knowledge from task 0.5. Set up tRPC server and client, create routers for different entities (products, users, orders), implement type-safe procedures. EDUCATIONAL COMPONENTS: Understand how tRPC differs from traditional REST APIs. Learn about type inference across client-server boundaries. Practice input validation with Zod schemas. Implement proper error handling. Document API design decisions and type safety benefits.",
+        "testStrategy": "Test API endpoints and verify type safety across frontend and backend"
+      },
+      {
+        "id": "5",
+        "title": "Product Management System",
+        "description": "Build comprehensive product management with categories, variants, and inventory",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "4"
+        ],
+        "details": "Create product CRUD operations, category management, variant handling, inventory tracking, and image uploads using Supabase Storage.",
+        "testStrategy": "Test product creation, updates, category assignment, and inventory management"
+      },
+      {
+        "id": "6",
+        "title": "Homepage and Navigation Components",
+        "description": "Build the main homepage with hero section, navigation, and product showcase",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "1",
+          "5"
+        ],
+        "details": "Create responsive homepage layout, navigation menu, hero section with animations, product showcase, and interactive elements matching the original design.",
+        "testStrategy": "Test responsive design, navigation functionality, and visual consistency"
+      },
+      {
+        "id": "7",
+        "title": "Product Catalog and Listing Pages",
+        "description": "Build product listing pages with search, filtering, and categorization",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "5"
+        ],
+        "details": "Create product listing components, implement search functionality, filtering by categories and attributes, pagination, and sorting options.",
+        "testStrategy": "Test search accuracy, filter functionality, and pagination performance"
+      },
+      {
+        "id": "8",
+        "title": "Individual Product Pages",
+        "description": "Create detailed product pages with images, descriptions, reviews, and variants",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "5"
+        ],
+        "details": "Build product detail pages with image galleries, product descriptions, variant selection, review display, and add-to-cart functionality.",
+        "testStrategy": "Test product detail display, variant selection, and add-to-cart functionality"
+      },
+      {
+        "id": "9",
+        "title": "Shopping Cart System",
+        "description": "Implement shopping cart with persistent storage and cart management",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "3",
+          "5"
+        ],
+        "details": "Create cart state management, persistent cart storage, cart updates, quantity management, and free shipping threshold indicator.",
+        "testStrategy": "Test cart persistence, quantity updates, and shipping threshold calculations"
+      },
+      {
+        "id": "10",
+        "title": "Checkout and Payment Integration",
+        "description": "Build secure checkout flow with Stripe payment processing",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "9"
+        ],
+        "details": "Implement checkout form, address management, payment processing with Stripe, order confirmation, and email notifications.",
+        "testStrategy": "Test checkout flow, payment processing, and order confirmation emails"
+      },
+      {
+        "id": "11",
+        "title": "User Account and Order Management",
+        "description": "Create user profile pages and order history functionality",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "3",
+          "10"
+        ],
+        "details": "Build user profile pages, order history display, account settings, wishlist functionality, and order tracking.",
+        "testStrategy": "Test user profile updates, order history display, and wishlist functionality"
+      },
+      {
+        "id": "12",
+        "title": "Review and Rating System",
+        "description": "Implement customer review and rating functionality for products",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "8",
+          "3"
+        ],
+        "details": "Create review submission forms, rating displays, review moderation, photo uploads, and review verification system.",
+        "testStrategy": "Test review submission, rating calculations, and moderation workflow"
+      },
+      {
+        "id": "13",
+        "title": "Admin Dashboard",
+        "description": "Build comprehensive admin interface for managing products, orders, and customers",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "5",
+          "10"
+        ],
+        "details": "Create admin dashboard with product management, order processing, customer management, analytics, and inventory tracking.",
+        "testStrategy": "Test admin functionality, data accuracy, and security permissions"
+      },
+      {
+        "id": "14",
+        "title": "Content Management and Static Pages",
+        "description": "Implement blog, FAQ, About Us, and other content pages",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": [
+          "1"
+        ],
+        "details": "Create content management system for blog posts, FAQ pages, About Us page, contact forms, and social media integration.",
+        "testStrategy": "Test content creation, blog functionality, and contact form submissions"
+      },
+      {
+        "id": "15",
+        "title": "SEO Optimization and Performance",
+        "description": "Implement SEO best practices, performance optimization, and analytics",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "6",
+          "7",
+          "8"
+        ],
+        "details": "Optimize for search engines, implement meta tags, structured data, sitemap generation, image optimization, and Google Analytics integration.",
+        "testStrategy": "Test SEO metrics, page load speeds, and analytics tracking"
+      },
+      {
+        "id": "16",
+        "title": "Self-Hosted Supabase with Docker Setup",
+        "description": "Deploy complete self-hosted Supabase stack using Docker for full backend control",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": [
+          "1"
+        ],
+        "details": "Set up complete self-hosted Supabase environment using official Supabase Docker configuration. Includes PostgreSQL, PostgREST, GoTrue Auth, Realtime, Storage API, Kong API Gateway, Supabase Studio dashboard, Redis for caching, and development tools (pgAdmin). Configure proper networking, volumes, health checks, and environment variables for production-ready deployment.",
+        "testStrategy": "Test all Supabase services, API endpoints, authentication, storage, real-time functionality, and dashboard access"
+      },
+      {
+        "id": "17",
+        "title": "Production Docker Configuration",
+        "description": "Create optimized Docker images for production deployment",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": [
+          "16",
+          "10"
+        ],
+        "details": "Create multi-stage Dockerfile for Next.js production build, configure environment variables, implement health checks, and optimize image size. Set up container registry and deployment scripts.",
+        "testStrategy": "Test production container performance, startup time, and deployment process"
+      },
+      {
+        "id": "18",
+        "title": "Background Services with Docker",
+        "description": "Implement containerized background workers for email processing and image optimization",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": [
+          "16",
+          "12"
+        ],
+        "details": "Create Docker containers for email workers (order confirmations, newsletters), image processing services (resizing, optimization), and job queue management using Redis.",
+        "testStrategy": "Test background job processing, email delivery, and image optimization workflows"
+      },
+      {
+        "id": "19",
+        "title": "Supabase Docker Integration Setup",
+        "description": "Clone and configure official Supabase Docker repository for self-hosting",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": [
+          "16"
+        ],
+        "details": "Clone the official Supabase Docker repository (github.com/supabase/supabase), copy docker configuration files, configure environment variables (.env), generate JWT secrets and API keys, set up proper security credentials, and integrate with the Next.js application. Configure Kong API gateway, database initialization scripts, and all necessary Supabase services.",
+        "testStrategy": "Verify Supabase Studio dashboard access, test API endpoints, confirm database connectivity, and validate authentication flows"
+      }
+    ],
+    "metadata": {
+      "created": "2025-01-27",
+      "description": "Ramen Bae E-commerce Clone Project Tasks",
+      "project": "ramen-bae-clone",
+      "updated": "2025-01-27"
+    }
+  }
+}

@@ -1,0 +1,153 @@
+# Ramen Bae E-commerce Clone - Product Requirements Document
+
+## Project Overview
+Create a complete clone of the Ramen Bae website (https://theramenbae.com/), a specialized e-commerce platform for dried ramen toppings and accessories. The site should replicate all core functionality while using modern web development practices.
+
+## Tech Stack
+- **Frontend**: Next.js 15+ with TypeScript, shadcn/ui components, Tailwind CSS
+- **Backend**: Self-hosted Supabase stack (complete Docker deployment), Drizzle ORM, tRPC for API layer
+- **Database**: PostgreSQL (via self-hosted Supabase)
+- **Authentication**: GoTrue (Supabase Auth service)
+- **Real-time**: Supabase Realtime service
+- **Storage**: Supabase Storage API (file-based or S3-compatible)
+- **API Gateway**: Kong (Supabase API routing)
+- **Caching**: Redis for sessions and background jobs
+- **Hosting**: Docker containers (self-hosted) or Vercel + managed Supabase (fallback)
+- **Payments**: Stripe integration
+- **Development**: Complete self-hosted environment with Docker Compose
+
+## Self-Hosted Architecture Benefits
+- **Complete Control**: Full ownership of backend infrastructure and data
+- **Cost Efficiency**: Fixed hosting costs vs usage-based pricing
+- **Learning Opportunity**: Understand microservices architecture and Docker orchestration
+- **No Vendor Lock-in**: Can migrate or modify services as needed
+- **Production Ready**: Health checks, monitoring, backup strategies included
+
+## Development Environment
+- **Complete Supabase Stack**: Auth, Database, Storage, Realtime, REST API, Dashboard
+- **Containerized Services**: All services run in Docker containers with proper networking
+- **Background Workers**: Email processing, image optimization with Redis job queues
+- **Development Tools**: pgAdmin for database management, Redis Commander for cache inspection
+- **Production Features**: SSL termination, security hardening, backup procedures
+
+## Core Features & Requirements
+
+### 1. Homepage & Navigation
+- Hero section with animated elements and product showcase
+- Navigation menu with Shop, About Us, FAQ, Contact Us
+- Social media integration (Instagram, TikTok, Facebook)
+- Interactive product exploration section
+- Customer testimonials and reviews
+- Mobile-responsive design
+
+### 2. Product Catalog & Management
+- Product collections: Mixes, Singles, Bundles, Merch, Seasoning & Sauce
+- Individual product pages with detailed descriptions, images, reviews
+- Product variants (sizes, flavors)
+- Product search and filtering
+- Inventory management
+- Product recommendations
+
+### 3. E-commerce Functionality
+- Shopping cart with persistent storage
+- Add to cart functionality
+- Cart updates and quantity management
+- Free shipping threshold ($40) with progress indicator
+- Promotional offers and discounts
+- Bundle deals and packages
+
+### 4. User Authentication & Accounts
+- User registration and login
+- Password reset functionality
+- User profiles and account management
+- Order history
+- Wishlist functionality
+
+### 5. Checkout & Payment Processing
+- Secure checkout flow
+- Multiple payment methods (credit card, PayPal, etc.)
+- Order confirmation and email notifications
+- Tax calculation
+- Shipping options and rates
+
+### 6. Content Management
+- Blog system for recipes and news
+- FAQ section
+- About Us page
+- Contact forms
+- Customer support integration
+
+### 7. Review & Rating System
+- Product reviews and ratings
+- Review moderation
+- Customer photo uploads
+- Review verification
+
+### 8. Admin Dashboard
+- Product management (CRUD operations)
+- Order management
+- Customer management
+- Analytics and reporting
+- Inventory tracking
+
+### 9. Marketing & SEO
+- Newsletter subscription
+- Social media feed integration
+- SEO optimization
+- Google Analytics integration
+- Meta tags and structured data
+
+### 10. Performance & User Experience
+- Fast loading times
+- Image optimization
+- Progressive Web App (PWA) capabilities
+- Accessibility compliance
+- Error handling and validation
+
+## Product Categories Identified
+1. **Mixes**: Classic Seafood Mix, Spicy Garlic Mix, Veggie Mix, Beef Mix, Kimchi Mix
+2. **Bundles**: Starter Bundle, Variety Bundle, Mushroom Bundle
+3. **Singles**: Japanese Fish Cake, Enoki Mushroom, Oyster Mushroom, Plant Based Beef, Corn, Tofu, Shrimp
+4. **Seasoning & Sauce**: Ramen Hot Sauce, Ramen Seasoning varieties
+5. **Merch**: Stickers and branded items
+
+## Key Business Logic
+- Free shipping on orders over $40
+- Bundle pricing with discounts
+- Sold out product handling
+- Review system with verified purchases
+- Social proof through customer photos
+
+## Design Requirements
+- Modern, clean design with ramen-themed branding
+- Interactive elements and animations
+- Mobile-first responsive design
+- Consistent color scheme and typography
+- High-quality product photography display
+
+## Integration Requirements
+- Email marketing platform integration
+- Social media API integrations
+- Payment gateway (Stripe)
+- Shipping carrier APIs
+- Analytics and tracking tools
+
+## Security & Compliance
+- Secure payment processing
+- User data protection
+- GDPR compliance
+- SSL encryption
+- Input validation and sanitization
+
+## Performance Goals
+- Page load time under 3 seconds
+- 95+ Lighthouse performance score
+- Mobile-optimized experience
+- SEO-friendly architecture
+
+## Success Metrics
+- User conversion rate
+- Average order value
+- Customer retention rate
+- Page load performance
+- Search engine rankings 
