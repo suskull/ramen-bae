@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Simple Docker App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .info {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐳 Hello from Docker!</h1>
+        <p>This HTML file is being served by nginx running inside a Docker container.</p>
+        
+        <div class="info">
+            <h3>How this works:</h3>
+            <p>1. Built a Docker image with nginx<br>
+            2. Copied this HTML file into the container<br>
+            3. nginx serves the file on port 80</p>
+        </div>
+        
+        <p><strong>Server:</strong> nginx in Alpine Linux</p>
+        <p><strong>Container Technology:</strong> Docker</p>
+        
+        <div class="info">
+            <p>🎉 Your Docker static file server is working perfectly!</p>
+        </div>
+    </div>
+</body>
+</html> 

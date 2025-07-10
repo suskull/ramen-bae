@@ -1282,6 +1282,149 @@ docker system df
 
 ---
 
+## 🎯 Exercise 8: Using the Existing Frontend Application
+**Time**: 30 minutes  
+**Goal**: Learn how to serve and containerize existing HTML/CSS/JS applications
+
+### Background
+In the `practice/frontend/` directory, there's already a complete web application waiting to be used. This exercise teaches you how to work with existing frontend code and serve it using different methods.
+
+#### Tasks:
+
+#### Part A: Explore the Existing Application (5 minutes)
+
+**Step 1:** Navigate to the practice frontend directory:
+```bash
+# From the exercises directory, go to the practice frontend
+cd ../practice/frontend
+pwd  # Confirm you're in Learning/0.3-Docker-Environment/practice/frontend
+ls -la  # You should see index.html, app.js, styles.css, etc.
+```
+
+**Step 2:** Examine the application structure:
+```bash
+# Look at the main HTML file
+head -20 index.html
+
+# Check what JavaScript functionality exists
+grep -n "function" app.js
+
+# See the styling
+head -10 styles.css
+```
+
+#### Part B: Serve the Application Locally (10 minutes)
+
+**Step 3:** Method 1 - Direct file access (Limited):
+```bash
+# Open directly in browser (macOS)
+open index.html
+# Or on Linux: xdg-open index.html
+# Or on Windows: start index.html
+```
+**Note:** This method works for basic HTML but may have limitations with JavaScript fetching data.
+
+**Step 4:** Method 2 - Simple HTTP Server (Recommended):
+```bash
+# Using Python (most systems have this)
+python3 -m http.server 8000
+# Open http://localhost:8000 in your browser
+
+# Alternative using Node.js (if you have it)
+# npx serve . -p 8000
+```
+
+**Step 5:** Test the application features:
+- Open `http://localhost:8000` in your browser
+- Click around the interface
+- Check browser developer tools (F12) for any errors
+- Stop the server with `Ctrl+C`
+
+#### Part C: Containerize with Docker (15 minutes)
+
+**Step 6:** Use the existing Dockerfile:
+```bash
+# Look at the current Dockerfile
+cat Dockerfile
+```
+
+**Step 7:** Build and run the containerized frontend:
+```bash
+# Build the Docker image
+docker build -t frontend-app .
+
+# Run the container
+docker run -d -p 8080:80 --name my-frontend frontend-app
+
+# Test the containerized app
+curl -I http://localhost:8080  # Should return HTTP 200
+```
+
+**Step 8:** Access the containerized application:
+```bash
+# Open in browser
+open http://localhost:8080
+# Or test with curl
+curl http://localhost:8080
+```
+
+**Step 9:** Use Docker Compose for easier management:
+```bash
+# Look at the existing docker-compose.yml
+cat docker-compose.yml
+
+# Start using compose
+docker compose up -d
+
+# Check logs
+docker compose logs -f
+
+# Access the app (check docker-compose.yml for the port)
+curl http://localhost:3000  # or whatever port is configured
+```
+
+#### Part D: Debug and Customize (Optional)
+
+**Step 10:** Inspect the running container:
+```bash
+# See what's inside the container
+docker exec -it my-frontend sh
+
+# Inside the container, check the served files:
+ls -la /usr/share/nginx/html/
+cat /etc/nginx/nginx.conf
+exit
+```
+
+**Step 11:** Make a simple customization:
+```bash
+# Edit the index.html to add your name
+sed -i.backup 's/Frontend App/Your Name - Frontend App/' index.html
+
+# Rebuild and test
+docker build -t frontend-app:custom .
+docker run -d -p 8081:80 --name custom-frontend frontend-app:custom
+open http://localhost:8081
+```
+
+#### ✅ Verification Checklist:
+- [ ] Successfully explored the existing application files
+- [ ] Served the app using a local HTTP server  
+- [ ] Built and ran the app in a Docker container
+- [ ] Accessed the containerized app through a web browser
+- [ ] Used Docker Compose to manage the application
+- [ ] Understand the difference between file access and HTTP serving
+- [ ] Can inspect and customize containerized applications
+
+**🎯 Key Learnings:**
+- How to work with existing frontend applications
+- Different methods to serve static HTML/CSS/JS files
+- The importance of HTTP servers vs direct file access
+- How to containerize frontend applications with Nginx
+- Using Docker Compose for frontend applications
+
+---
+
 ## 🏆 Final Challenge: Build a Complete Application
 
 **Time**: 90 minutes  

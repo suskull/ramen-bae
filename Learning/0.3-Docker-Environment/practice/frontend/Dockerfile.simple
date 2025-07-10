@@ -1,0 +1,15 @@
+# Simple version - runs as root (perfect for development)
+FROM nginx:1.25-alpine
+
+# Copy static files
+COPY index.html /usr/share/nginx/html/
+COPY styles.css /usr/share/nginx/html/
+COPY app.js /usr/share/nginx/html/
+
+# Copy standalone nginx config (no backend dependencies)
+COPY nginx-standalone.conf /etc/nginx/nginx.conf
+
+EXPOSE 8080
+
+# Start nginx (runs as root by default - fine for development)
+CMD ["nginx", "-g", "daemon off;"]

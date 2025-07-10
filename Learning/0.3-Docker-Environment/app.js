@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs').promises;
 const path = require('path');
 const { Pool } = require('pg');
+const { createClient } = require('redis');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,17 @@ const pool = new Pool({
   port: process.env.POSTGRES_PORT || 5432,
 });
 
+// Redis connection
+const redis = createClient({
+  socket: {
+    host: process.env.REDIS_HOST || 'localhost',
+    port: process.env.REDIS_PORT || 6379
+  }
+});
+
+redis.on('error', (err) => console.log('Redis Client Error', err));
+redis.connect();
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
@@ -30,10 +42,45 @@ app.get('/env', (req, res) => {
 // Health check endpoint
 app.get('/health', async (req, res) => {
   try {
+    // Test database
     await pool.query('SELECT 1');
-    res.json({ status: 'healthy', database: 'connected' });
+    
+    // Test Redis
+    await redis.ping();
+    
+    res.json({ 
+      status: 'healthy', 
+      database: 'connected',
+      cache: 'connected',
+      timestamp: new Date().toISOString()
+    });
   } catch (error) {
-    res.status(500).json({ status: 'unhealthy', error: error.message });
+    res.status(500).json({ 
+      status: 'unhealthy', 
+      error: error.message 
+    });
+  }
+});
+
+// Cache test endpoint
+app.get('/cache-test', async (req, res) => {
+  try {
+    const key = 'test-key';
+    const value = `Test value at ${new Date().toISOString()}`;
+    
+    // Set value in cache
+    await redis.setEx(key, 60, value); // Expires in 60 seconds
+    
+    // Get value from cache
+    const cachedValue = await redis.get(key);
+    
+    res.json({
+      original: value,
+      cached: cachedValue,
+      match: value === cachedValue
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -45,6 +92,10 @@ app.post('/users', async (req, res) => {
       'INSERT INTO users (name, email) VALUES ($1, $2) RETURNING *',
       [name, email]
     );
+    
+    // Clear users cache
+    await redis.del('users:all');
+    
     res.json(result.rows[0]);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -53,7 +104,18 @@ app.post('/users', async (req, res) => {
 
 app.get('/users', async (req, res) => {
   try {
+    // Try to get from cache first
+    const cached = await redis.get('users:all');
+    if (cached) {
+      return res.json(JSON.parse(cached));
+    }
+    
+    // If not in cache, get from database
     const result = await pool.query('SELECT * FROM users ORDER BY id');
+    
+    // Cache the result for 5 minutes
+    await redis.setEx('users:all', 300, JSON.stringify(result.rows));
+    
     res.json(result.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });

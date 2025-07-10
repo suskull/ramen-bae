@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Full-Stack App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Docker Full-Stack Application</h1>
+        
+        <div class="section">
+            <h2>API Health</h2>
+            <button onclick="checkHealth()">Check API Health</button>
+            <div id="health-status"></div>
+        </div>
+
+        <div class="section">
+            <h2>Users Management</h2>
+            <form onsubmit="addUser(event)">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <button type="submit">Add User</button>
+            </form>
+            <button onclick="loadUsers()">Load Users</button>
+            <div id="users-list"></div>
+        </div>
+
+        <div class="section">
+            <h2>Cache Test</h2>
+            <button onclick="testCache()">Test Redis Cache</button>
+            <div id="cache-result"></div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
