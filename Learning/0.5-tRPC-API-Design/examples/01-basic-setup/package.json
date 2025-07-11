@@ -1,0 +1,49 @@
+{
+  "name": "trpc-basic-setup",
+  "version": "1.0.0",
+  "description": "Basic tRPC server and client setup example",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "tsx watch server/index.ts",
+    "client": "tsx client/index.ts",
+    "client:react": "tsx client/react-example.tsx",
+    "client:vanilla": "tsx client/vanilla.ts",
+    "build": "tsc",
+    "type-check": "tsc --noEmit",
+    "test": "echo \"Run individual client examples to test\""
+  },
+  "keywords": [
+    "trpc",
+    "typescript",
+    "type-safety",
+    "api",
+    "example"
+  ],
+  "author": "Learning Examples",
+  "license": "MIT",
+  "dependencies": {
+    "@trpc/server": "^10.45.0",
+    "@trpc/client": "^10.45.0",
+    "@trpc/react-query": "^10.45.0",
+    "@tanstack/react-query": "^4.32.6",
+    "zod": "^3.22.4",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/cors": "^2.8.13",
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "typescript": "^5.1.6",
+    "tsx": "^3.12.7",
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 

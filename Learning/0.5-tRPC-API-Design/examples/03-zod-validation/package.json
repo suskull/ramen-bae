@@ -1,0 +1,36 @@
+{
+  "name": "trpc-zod-validation",
+  "version": "1.0.0",
+  "description": "tRPC example demonstrating advanced Zod validation patterns",
+  "main": "server.js",
+  "scripts": {
+    "server": "tsx server.ts",
+    "client": "tsx client.ts",
+    "test": "tsx validation-tests.ts",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "tsc",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "trpc",
+    "typescript",
+    "zod",
+    "validation",
+    "schemas",
+    "api",
+    "example"
+  ],
+  "author": "Learning Examples",
+  "license": "MIT",
+  "dependencies": {
+    "@trpc/server": "^10.45.0",
+    "@trpc/client": "^10.45.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.2.0",
+    "concurrently": "^8.2.0"
+  }
+} 

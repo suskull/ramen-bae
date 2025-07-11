@@ -1,0 +1,37 @@
+{
+  "name": "trpc-first-procedures",
+  "version": "1.0.0",
+  "description": "tRPC example demonstrating queries vs mutations",
+  "main": "server.js",
+  "scripts": {
+    "server": "tsx server.ts",
+    "client": "tsx client.ts",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build": "tsc",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "trpc",
+    "typescript",
+    "queries",
+    "mutations",
+    "api",
+    "example"
+  ],
+  "author": "Learning Examples",
+  "license": "MIT",
+  "dependencies": {
+    "@trpc/server": "^10.45.0",
+    "@trpc/client": "^10.45.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "typescript": "^5.1.6",
+    "tsx": "^3.12.7",
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 
