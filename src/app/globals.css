@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Light mode - High contrast using OKLCH */
+  --color-background: oklch(1 0 0);               /* Pure white */
+  --color-foreground: oklch(0.09 0 0);            /* Almost black */
+  --color-card: oklch(1 0 0);                     /* Pure white */
+  --color-card-foreground: oklch(0.09 0 0);       /* Almost black */
+  --color-popover: oklch(1 0 0);                  /* Pure white */
+  --color-popover-foreground: oklch(0.09 0 0);    /* Almost black */
+  --color-primary: oklch(0.546 0.245 262.881);    /* Blue primary */
+  --color-primary-foreground: oklch(0.98 0 0);    /* Very light */
+  --color-secondary: oklch(0.96 0.015 240);       /* Light gray */
+  --color-secondary-foreground: oklch(0.2 0 0);   /* Dark gray */
+  --color-muted: oklch(0.96 0.015 240);           /* Light gray */
+  --color-muted-foreground: oklch(0.46 0.016 240); /* Medium gray */
+  --color-accent: oklch(0.96 0.015 240);          /* Light gray */
+  --color-accent-foreground: oklch(0.2 0 0);      /* Dark gray */
+  --color-destructive: oklch(0.637 0.237 25.331); /* Red */
+  --color-destructive-foreground: oklch(0.98 0 0); /* Very light */
+  --color-border: oklch(0.91 0.015 240);          /* Light border */
+  --color-input: oklch(0.91 0.015 240);           /* Light input */
+  --color-ring: oklch(0.546 0.245 262.881);       /* Blue ring */
+  --radius: 0.5rem;
+  
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.dark {
+  /* Dark mode - Balanced using OKLCH (converted from HSL) */
+  --color-background: oklch(0.208 0.042 265.755);   /* hsl(222.2 84% 4.9%) */
+  --color-foreground: oklch(0.98 0.015 240);        /* hsl(210 40% 98%) */
+  --color-card: oklch(0.208 0.042 265.755);         /* hsl(222.2 84% 4.9%) */
+  --color-card-foreground: oklch(0.98 0.015 240);   /* hsl(210 40% 98%) */
+  --color-popover: oklch(0.208 0.042 265.755);      /* hsl(222.2 84% 4.9%) */
+  --color-popover-foreground: oklch(0.98 0.015 240); /* hsl(210 40% 98%) */
+  --color-primary: oklch(0.98 0.015 240);           /* hsl(210 40% 98%) */
+  --color-primary-foreground: oklch(0.379 0.146 265.522); /* hsl(222.2 47.4% 11.2%) */
+  --color-secondary: oklch(0.372 0.044 257.287);    /* hsl(217.2 32.6% 17.5%) */
+  --color-secondary-foreground: oklch(0.98 0.015 240); /* hsl(210 40% 98%) */
+  --color-muted: oklch(0.372 0.044 257.287);        /* hsl(217.2 32.6% 17.5%) */
+  --color-muted-foreground: oklch(0.651 0.02 240);  /* hsl(215 20.2% 65.1%) */
+  --color-accent: oklch(0.372 0.044 257.287);       /* hsl(217.2 32.6% 17.5%) */
+  --color-accent-foreground: oklch(0.98 0.015 240); /* hsl(210 40% 98%) */
+  --color-destructive: oklch(0.306 0.092 26.042);   /* hsl(0 62.8% 30.6%) */
+  --color-destructive-foreground: oklch(0.98 0.015 240); /* hsl(210 40% 98%) */
+  --color-border: oklch(0.372 0.044 257.287);       /* hsl(217.2 32.6% 17.5%) */
+  --color-input: oklch(0.372 0.044 257.287);        /* hsl(217.2 32.6% 17.5%) */
+  --color-ring: oklch(0.839 0.027 212.7);           /* hsl(212.7 26.8% 83.9%) */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    @apply bg-background text-foreground;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

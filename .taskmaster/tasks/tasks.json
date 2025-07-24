@@ -5,7 +5,7 @@
         "id": "0",
         "title": "Backend Learning Foundations & Onboarding",
         "description": "Comprehensive backend education through hands-on exercises and concept exploration",
-        "status": "pending",
+        "status": "done",
         "priority": "high",
         "dependencies": [],
         "details": "LEARNING-FOCUSED TASK: Before building the main application, establish solid backend fundamentals through practical exercises. Topics include: HTTP methods and status codes (create test endpoints for each), database design principles (design entity-relationship diagrams), API design patterns (build simple CRUD examples), Docker fundamentals (run basic containers), authentication concepts (implement basic JWT), and SQL basics (practice queries). Create proof-of-concept mini-applications to understand each concept deeply. Document learning in .taskmaster/docs/learning-journal.md. Set up development tools: pgAdmin, Postman/Insomnia, Docker Desktop. This task should take 1-2 weeks and result in strong foundational knowledge before proceeding to main features.",
@@ -64,7 +64,7 @@
         "id": "1",
         "title": "Project Setup and Configuration",
         "description": "Set up the development environment, configure Next.js, TypeScript, and essential tools",
-        "status": "pending",
+        "status": "done",
         "priority": "high",
         "dependencies": [
           "0"
