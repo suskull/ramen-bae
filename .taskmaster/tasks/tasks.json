@@ -76,13 +76,105 @@
         "id": "2",
         "title": "Database Schema Design & Setup",
         "description": "Design and implement database schema using Drizzle ORM with Supabase",
-        "status": "pending",
+        "status": "in-progress",
         "priority": "high",
         "dependencies": [
           "1"
         ],
         "details": "LEARNING-FOCUSED: Apply database design principles learned in task 0.2. Create tables for products, users, orders, categories, reviews, cart items, and other necessary entities. Set up Drizzle ORM configuration and migrations. EDUCATIONAL COMPONENTS: Compare Drizzle schema definitions to raw SQL CREATE TABLE statements. Understand ORM vs raw SQL trade-offs. Practice writing migrations and understand schema versioning. Document design decisions and why each relationship exists.",
-        "testStrategy": "Test database connections and verify all tables are created correctly"
+        "testStrategy": "Test database connections and verify all tables are created correctly",
+        "subtasks": [
+          {
+            "id": "2.1",
+            "title": "Database Schema Planning & Research",
+            "description": "Research e-commerce database patterns and plan schema architecture with learning focus",
+            "status": "pending",
+            "dependencies": [],
+            "details": "CONCEPT EXPLANATION: Study e-commerce domain modeling principles, understand entity relationships in online stores. RESEARCH PHASE: Investigate current best practices for product catalogs, user management, order processing. LEARNING OBJECTIVES: Connect database normalization principles from task 0.2 to real-world e-commerce needs. Compare different schema approaches (document vs relational, normalized vs denormalized). DELIVERABLES: Create entity relationship diagram (ERD), document design decisions, research common e-commerce database patterns. EDUCATIONAL COMPONENTS: Learn why certain relationships exist (1:1, 1:many, many:many), understand referential integrity importance, study indexing strategies for e-commerce queries.",
+            "testStrategy": "Review ERD with domain expert, validate entity relationships, confirm all business requirements are captured"
+          },
+          {
+            "id": "2.2",
+            "title": "Supabase Environment Setup & Configuration",
+            "description": "Set up Supabase project and understand cloud database architecture",
+            "status": "pending",
+            "dependencies": ["2.1"],
+            "details": "CONCEPT EXPLANATION: Understand Database-as-a-Service (DBaaS) vs self-hosted databases. Learn Supabase architecture: PostgreSQL + PostgREST + GoTrue + Realtime. IMPLEMENTATION: Create Supabase project, configure environment variables, set up connection strings. LEARNING FOCUS: Compare Supabase to other DBaaS solutions (Firebase, PlanetScale, Neon), understand PostgreSQL features, learn about Row Level Security (RLS). BEST PRACTICES: Environment variable management, connection pooling, security configurations. DOCUMENTATION: Document setup process, troubleshooting guide, environment configuration patterns.",
+            "testStrategy": "Test database connection from Next.js app, verify environment variables, confirm PostgreSQL access"
+          },
+          {
+            "id": "2.3",
+            "title": "Drizzle ORM Installation & Configuration",
+            "description": "Install and configure Drizzle ORM with TypeScript integration",
+            "status": "pending",
+            "dependencies": ["2.2"],
+            "details": "CONCEPT EXPLANATION: Understand ORM benefits and trade-offs, learn Drizzle's philosophy vs other ORMs (Prisma, TypeORM). COMPARISON ANALYSIS: Drizzle vs raw SQL vs other ORMs - performance, type safety, learning curve, ecosystem. IMPLEMENTATION: Install Drizzle, configure drizzle.config.ts, set up TypeScript integration, configure database drivers. LEARNING OBJECTIVES: Understand query builders vs schema builders, learn about type inference in ORMs, study migration strategies. BEST PRACTICES: Project structure for schema files, naming conventions, environment-specific configurations. TROUBLESHOOTING: Common setup issues, TypeScript configuration problems, connection debugging.",
+            "testStrategy": "Verify Drizzle can connect to Supabase, test TypeScript compilation, run basic queries"
+          },
+          {
+            "id": "2.4",
+            "title": "Core Entity Tables Implementation (Users, Categories, Products)",
+            "description": "Implement fundamental business entities with proper relationships and constraints",
+            "status": "pending",
+            "dependencies": ["2.3"],
+            "details": "EDUCATIONAL APPROACH: Start with core entities before relationships. IMPLEMENTATION ORDER: Users table (extend Supabase Auth), Categories table (hierarchical structure), Products table (complex entity with variants). LEARNING FOCUS: Understand primary keys, foreign keys, constraints, data types. DRIZZLE PATTERNS: Learn schema definition syntax, understand type inference, practice constraint definitions. COMPARISON: Write equivalent SQL CREATE TABLE statements alongside Drizzle schemas to understand translation. BEST PRACTICES: Naming conventions, timestamp columns, soft deletes, UUID vs integer IDs. COMMON PITFALLS: Circular dependencies, incorrect data types, missing constraints, poor naming.",
+            "testStrategy": "Create and query each table, test constraints, verify foreign key relationships, check data types"
+          },
+          {
+            "id": "2.5",
+            "title": "Order & Transaction Tables Implementation",
+            "description": "Implement complex order management system with proper financial and inventory tracking",
+            "status": "pending",
+            "dependencies": ["2.4"],
+            "details": "COMPLEX RELATIONSHIPS: Orders -> Order Items -> Products, Users -> Orders -> Payments. FINANCIAL INTEGRITY: Proper money handling (decimal precision), tax calculations, discount applications. LEARNING OBJECTIVES: Understand transaction patterns in e-commerce, learn about order state management, study inventory tracking. IMPLEMENTATION: Orders table, Order Items table, Payment records, Shipping addresses. ADVANCED CONCEPTS: Order status workflows, inventory reservations, refund handling, audit trails. PERFORMANCE CONSIDERATIONS: Indexes for order queries, partitioning strategies for large datasets. REAL-WORLD APPLICATION: How major e-commerce platforms handle orders, common patterns and anti-patterns.",
+            "testStrategy": "Test order creation flow, verify financial calculations, test inventory updates, validate order state transitions"
+          },
+          {
+            "id": "2.6",
+            "title": "Supporting Tables Implementation (Reviews, Cart, Images)",
+            "description": "Implement supporting entities that enhance user experience and business intelligence",
+            "status": "pending",
+            "dependencies": ["2.5"],
+            "details": "USER EXPERIENCE TABLES: Reviews (with ratings), Shopping Carts (persistent), Wishlists, Product Images. BUSINESS INTELLIGENCE: User sessions, product views, search queries, abandoned carts. IMPLEMENTATION DETAILS: Polymorphic relationships (images for products/reviews), JSON columns for flexible data, text search configurations. LEARNING FOCUS: When to use JSON vs relational tables, implementing rating systems, handling file uploads/references. ADVANCED FEATURES: Full-text search setup, recommendation engine data, analytics event tracking. SCALABILITY: Strategies for handling large review datasets, image storage patterns, cart cleanup jobs.",
+            "testStrategy": "Test review submissions, verify cart persistence, test image uploads, validate search functionality"
+          },
+          {
+            "id": "2.7",
+            "title": "Database Migrations & Version Control",
+            "description": "Implement proper database migration system and understand schema versioning",
+            "status": "pending",
+            "dependencies": ["2.6"],
+            "details": "MIGRATION CONCEPTS: What are migrations, why they're important, forward vs backward compatibility. DRIZZLE MIGRATIONS: Learn drizzle-kit migration commands, understand migration file structure, practice schema changes. BEST PRACTICES: Migration naming conventions, breaking vs non-breaking changes, production deployment strategies. LEARNING OBJECTIVES: Understand schema versioning, learn rollback strategies, study team collaboration patterns. REAL-WORLD APPLICATION: How to handle schema changes in production, zero-downtime migrations, coordination with application deployments. TROUBLESHOOTING: Common migration errors, conflict resolution, manual intervention scenarios. VERSION CONTROL: Git strategies for migrations, branching patterns, merge conflict resolution.",
+            "testStrategy": "Run migrations on fresh database, test rollbacks, verify schema consistency across environments"
+          },
+          {
+            "id": "2.8",
+            "title": "Performance Optimization & Indexing Strategy",
+            "description": "Optimize database performance with proper indexing and query optimization",
+            "status": "pending",
+            "dependencies": ["2.7"],
+            "details": "INDEX FUNDAMENTALS: What are indexes, when to use them, performance trade-offs. E-COMMERCE QUERY PATTERNS: Product searches, category filtering, order history, user lookups. IMPLEMENTATION: Create indexes for common query patterns, analyze query performance, optimize slow queries. LEARNING OBJECTIVES: Understand EXPLAIN ANALYZE, learn about different index types (B-tree, GIN, GIST), study query planning. DRIZZLE INDEXING: How to define indexes in Drizzle schemas, migration strategies for adding indexes. MONITORING: Set up query performance monitoring, identify slow queries, create performance baselines. ADVANCED TOPICS: Partial indexes, expression indexes, covering indexes, index maintenance.",
+            "testStrategy": "Benchmark query performance, verify index usage with EXPLAIN plans, test under load conditions"
+          },
+          {
+            "id": "2.9",
+            "title": "Data Validation & Security Implementation",
+            "description": "Implement comprehensive data validation and security measures at database level",
+            "status": "pending",
+            "dependencies": ["2.8"],
+            "details": "SUPABASE RLS: Understand Row Level Security, implement user-specific data access, protect sensitive information. VALIDATION PATTERNS: Database constraints vs application validation, CHECK constraints, domain validation. SECURITY BEST PRACTICES: Prevent SQL injection (parameterized queries), secure sensitive data, implement proper authentication checks. LEARNING OBJECTIVES: Understand defense in depth, learn about database security layers, study audit logging. IMPLEMENTATION: RLS policies for each table, input validation at schema level, audit trail implementation. COMMON VULNERABILITIES: Study OWASP database security risks, learn about privilege escalation, understand data exposure risks. TESTING: Security testing strategies, penetration testing basics, vulnerability assessment.",
+            "testStrategy": "Test RLS policies, verify data access restrictions, validate input constraints, conduct security audit"
+          },
+          {
+            "id": "2.10",
+            "title": "Schema Documentation & Testing Strategy",
+            "description": "Create comprehensive documentation and testing framework for database schema",
+            "status": "pending",
+            "dependencies": ["2.9"],
+            "details": "DOCUMENTATION REQUIREMENTS: Schema diagrams, relationship explanations, business rule documentation, API references. TESTING STRATEGY: Unit tests for schema validation, integration tests for relationships, performance tests for queries. LEARNING DELIVERABLES: Complete schema documentation, migration guides, troubleshooting documentation, best practices guide. KNOWLEDGE VALIDATION: Can explain every table and relationship, understand all design decisions, troubleshoot common issues. REAL-WORLD PREPARATION: How to present schema to stakeholders, explain technical decisions to non-technical team members, create onboarding materials for new developers. MAINTENANCE PLANNING: Schema evolution strategies, monitoring plans, backup and recovery procedures.",
+            "testStrategy": "Review documentation completeness, test all documented procedures, validate schema against business requirements"
+          }
+        ]
       },
       {
         "id": "3",

@@ -1,0 +1,71 @@
+# Backend Task Decomposition Rule
+
+- **Learning-First Approach:**
+  - Every backend task MUST be broken down into educational subtasks that build understanding progressively
+  - Each subtask should explain the "why" behind technical decisions, not just the "how"
+  - Include comparisons to alternative approaches to deepen understanding
+  - Connect new concepts to previously learned fundamentals
+
+- **Detailed Subtask Structure:**
+  - **Preparation Phase**: Research, planning, and understanding requirements
+  - **Design Phase**: Architecture decisions, schema design, API planning
+  - **Implementation Phase**: Step-by-step coding with detailed explanations
+  - **Integration Phase**: Connecting components and testing interactions
+  - **Documentation Phase**: Explaining decisions and creating learning materials
+  - **Testing Phase**: Comprehensive testing with edge cases
+
+- **Educational Components Required:**
+  - **Concept Explanation**: What is this technology/pattern and why use it?
+  - **Comparison Analysis**: How does this compare to alternatives? Trade-offs?
+  - **Real-World Application**: How is this used in production environments?
+  - **Common Pitfalls**: What mistakes should be avoided and why?
+  - **Best Practices**: Industry standards and recommended approaches
+  - **Debugging Guide**: How to troubleshoot common issues
+
+- **Documentation Requirements:**
+  - Each subtask should produce learning documentation
+  - Include code examples with detailed comments
+  - Create diagrams for complex relationships or flows
+  - Document decision rationale for future reference
+  - Include links to relevant resources and documentation
+
+- **Progressive Complexity:**
+  - Start with foundational concepts before advanced features
+  - Build complexity incrementally with clear learning milestones
+  - Ensure each subtask can be understood and implemented independently
+  - Include validation steps to confirm understanding
+
+- **Backend-Specific Focus Areas:**
+  - **Database Design**: Schema relationships, normalization, performance considerations
+  - **API Architecture**: RESTful principles, type safety, error handling, validation
+  - **Authentication/Security**: Security patterns, best practices, common vulnerabilities
+  - **Performance**: Optimization strategies, caching, database query efficiency
+  - **DevOps Integration**: Containerization, environment management, deployment considerations
+
+- **Implementation Guidelines:**
+  - Use `expand_task` with detailed `--prompt` for comprehensive breakdown
+  - Include `--research` flag to get current best practices
+  - Set status to `in-progress` when beginning implementation
+  - Use `update_subtask` to log learning discoveries and implementation insights
+  - Create follow-up tasks if new learning opportunities are discovered
+
+**Example Subtask Structure:**
+```
+2.1 Database Schema Planning & Research
+2.2 Entity Relationship Design & Documentation  
+2.3 Drizzle ORM Setup & Configuration
+2.4 Core Tables Implementation (Users, Products)
+2.5 Relationship Tables Implementation (Orders, Reviews)
+2.6 Migration System Setup & Testing
+2.7 Schema Validation & Performance Testing
+2.8 Documentation & Learning Summary
+```
+
+- **Quality Checkpoints:**
+  - Can a junior developer understand the subtask from the description alone?
+  - Does the subtask teach concepts beyond just completing the task?
+  - Are the learning objectives clear and measurable?
+  - Does the subtask connect to broader backend architecture principles?
+  - Is there sufficient detail for troubleshooting and debugging?
+
+**Apply this rule to all backend tasks in the project.**
